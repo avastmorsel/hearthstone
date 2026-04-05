@@ -9,8 +9,11 @@
   <meta name="theme-color" content="#2A1F0F">
   <title>Hearthstone</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232A1F0F'/%3E%3Cpath d='M16 26 C16 26 8 20 10 14 C11 10 13 12 13 12 C12 9 15 5 16 4 C17 5 20 9 19 12 C19 12 21 10 22 14 C24 20 16 26 16 26Z' fill='%23C49A3C'/%3E%3Cpath d='M16 24 C16 24 10 19 12 14.5 C13 12 14 13 14 13 C13.5 11 15 8 16 7 C16 10 17.5 12 16.5 14 C18 12 18.5 12 18.5 12 C18.5 15 17 19 16 22Z' fill='%23F0C060' opacity='0.8'/%3E%3C/svg%3E">
+
   <!-- Home screen icon (inline SVG → data URI for self-containment) -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232A1F0F'/%3E%3Ctext x='90' y='120' font-size='100' text-anchor='middle' font-family='serif'%3E🏠%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232A1F0F'/%3E%3Cpath d='M90 155 C90 155 45 120 55 85 C62 62 72 70 72 70 C68 55 80 32 90 28 C100 32 112 55 108 70 C108 70 118 62 125 85 C135 120 90 155 90 155Z' fill='%23C49A3C'/%3E%3Cpath d='M90 148 C90 148 52 116 62 86 C68 68 76 74 76 74 C73 62 83 42 90 38 C90 55 97 68 93 80 C100 66 102 66 102 66 C102 82 96 108 90 130Z' fill='%23F0C060' opacity='0.8'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -84,7 +87,7 @@
 
     .wordmark-title {
       font-family: var(--ff-display);
-      font-size: 1.55rem;
+      font-size: 1.75rem;
       font-weight: 700;
       color: var(--gold);
       letter-spacing: 0.04em;
@@ -92,7 +95,7 @@
 
     .wordmark-sub {
       font-family: var(--ff-body);
-      font-size: 0.68rem;
+      font-size: 0.74rem;
       color: var(--parchment);
       opacity: 0.55;
       font-style: italic;
@@ -150,7 +153,7 @@
       opacity: 0.45;
       padding: 9px 4px 7px;
       font-family: var(--ff-body);
-      font-size: 0.62rem;
+      font-size: 0.7rem;
       letter-spacing: 0.07em;
       text-transform: uppercase;
       display: flex;
@@ -196,13 +199,13 @@
 
     .stat-val {
       font-family: var(--ff-display);
-      font-size: 1.2rem;
+      font-size: 1.35rem;
       font-weight: 700;
       line-height: 1;
     }
 
     .stat-lbl {
-      font-size: 0.6rem;
+      font-size: 0.67rem;
       text-transform: uppercase;
       letter-spacing: 0.09em;
       color: var(--warm-gray);
@@ -295,13 +298,13 @@
 
     .cat-name {
       font-family: var(--ff-display);
-      font-size: 0.92rem;
+      font-size: 1rem;
       font-weight: 700;
       margin-bottom: 2px;
     }
 
     .cat-amounts {
-      font-size: 0.68rem;
+      font-size: 0.74rem;
       color: var(--warm-gray);
       margin-bottom: 5px;
     }
@@ -349,7 +352,7 @@
 
     label {
       display: block;
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.09em;
       color: var(--warm-gray);
@@ -404,7 +407,7 @@
       flex-direction: column;
       align-items: center;
       gap: 3px;
-      font-size: 0.6rem;
+      font-size: 0.67rem;
       color: var(--warm-gray);
       font-family: var(--ff-body);
       text-align: center;
@@ -455,12 +458,12 @@
 
     .exp-cat {
       font-family: var(--ff-display);
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: 700;
     }
 
     .exp-desc {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       color: var(--warm-gray);
       white-space: nowrap;
       overflow: hidden;
@@ -707,9 +710,16 @@
 <div id="toast"></div>
 
 <script>
+// ══════════════════════════════════════════════════════════
+//  CONFIGURATION
+//  After deploying your Apps Script, paste its URL below.
+// ══════════════════════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8QF3mdYdyPaCNooB5xvP5spqXbPiUdp4pk0EDPEbtFMP-CW0UCyd-uxh1btWnR2Z1rQ/exec';
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJIbxfJAkueh2pFh-w6xChfabOqBaO2S2AMbg4DstkuH9yWIMIGjrnZKDXIIVSPEB7Dg/exec';
-
+// ══════════════════════════════════════════════════════════
+//  CATEGORY REGISTRY
+// ══════════════════════════════════════════════════════════
+// Maps the display names used in the Sheet to icon keys.
 const CAT_ID = {
   'Mortgage':       'mortgage',
   'Utilities':      'utilities',
@@ -922,29 +932,43 @@ const ICONS = {
   </svg>`,
 
   dog: `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Cocoa: warm chocolate Sheprador — lab build, shepherd ears, earnest expression -->
-    <!-- Body -->
-    <ellipse cx="17" cy="29" rx="10" ry="7.5" fill="#7A4E2C" stroke="#5A3010" stroke-width="0.7"/>
-    <!-- Head -->
-    <circle cx="28" cy="19" r="8.5" fill="#8B5E3C" stroke="#5A3010" stroke-width="0.7"/>
-    <!-- Lab muzzle -->
-    <ellipse cx="33.5" cy="22" rx="4.5" ry="3.5" fill="#C49A6A" stroke="#5A3010" stroke-width="0.5"/>
-    <ellipse cx="35.5" cy="21" rx="1.5" ry="1.1" fill="#2A1F0F"/>
+    <!-- Cocoa: black brindled Sheprador — mostly black, GSD tan-point markings, lab build -->
+    <!-- Body - predominantly black -->
+    <ellipse cx="17" cy="29" rx="10" ry="7.5" fill="#181008" stroke="#0A0806" stroke-width="0.7"/>
+    <!-- Chest tan-point patch -->
+    <ellipse cx="13.5" cy="26.5" rx="4.5" ry="3.5" fill="#A87840" opacity="0.55"/>
+    <!-- Brindle striping on chest (dark over tan) -->
+    <line x1="11" y1="24.5" x2="13" y2="29" stroke="#0A0806" stroke-width="1" opacity="0.45"/>
+    <line x1="14" y1="23.5" x2="15.5" y2="28" stroke="#0A0806" stroke-width="0.8" opacity="0.35"/>
+    <!-- Head - black -->
+    <circle cx="28" cy="19" r="8.5" fill="#1C1208" stroke="#0A0806" stroke-width="0.7"/>
+    <!-- Muzzle - tan/fawn (GSD tan-point) -->
+    <ellipse cx="33.5" cy="22" rx="4.5" ry="3.5" fill="#C4986A" stroke="#0A0806" stroke-width="0.5"/>
+    <!-- Brindle stripes across muzzle -->
+    <line x1="30.5" y1="20.5" x2="32" y2="24.5" stroke="#1C1208" stroke-width="0.9" opacity="0.4"/>
+    <line x1="33"   y1="19.5" x2="34" y2="23.5" stroke="#1C1208" stroke-width="0.8" opacity="0.35"/>
+    <!-- Nose -->
+    <ellipse cx="35.5" cy="21" rx="1.5" ry="1.1" fill="#0A0806"/>
+    <!-- Eyebrow dots — the four-eyes GSD marking -->
+    <circle cx="29.5" cy="15.5" r="1.1" fill="#C4986A"/>
     <!-- Eye -->
-    <circle cx="30" cy="17" r="2" fill="#2A1F0F"/>
-    <circle cx="30.6" cy="16.4" r="0.55" fill="white" opacity="0.85"/>
-    <!-- Shepherd ear 1 (upright, pointed — the distinctive GSD trait) -->
-    <path d="M24 13 Q22 5 25.5 4 Q29 5 27.5 13" fill="#5A3010" stroke="#5A3010" stroke-width="0.4"/>
-    <!-- Shepherd ear 2 -->
-    <path d="M30 12 Q31 5 33.5 5.5 Q35.5 7.5 33 13" fill="#5A3010" stroke="#5A3010" stroke-width="0.4"/>
-    <!-- Tail (lab-proud, arced up) -->
-    <path d="M9 26 Q3 21 5 16 Q7 13 8.5 18 Q9.5 22 9 26" fill="#7A4E2C" stroke="#5A3010" stroke-width="0.5"/>
-    <!-- Front legs -->
-    <rect x="21" y="33" width="4" height="6" rx="2" fill="#8B5E3C" stroke="#5A3010" stroke-width="0.6"/>
-    <rect x="15" y="34" width="4" height="5" rx="2" fill="#7A4E2C" stroke="#5A3010" stroke-width="0.6"/>
-    <ellipse cx="23"   cy="39.2" rx="2.2" ry="0.8" fill="#5A3010"/>
-    <ellipse cx="17"   cy="39.2" rx="2.2" ry="0.8" fill="#5A3010"/>
-    <!-- Red collar (a little jaunty) -->
+    <circle cx="30" cy="17.8" r="2.1" fill="#0A0806"/>
+    <circle cx="30" cy="17.8" r="1.2" fill="#2A1A06"/>
+    <circle cx="30.7" cy="17.1" r="0.6" fill="white" opacity="0.9"/>
+    <!-- Upright shepherd ears — black -->
+    <path d="M24 13 Q22 4.5 25.5 3.5 Q29 4.5 27.5 13" fill="#0A0806" stroke="#0A0806" stroke-width="0.4"/>
+    <path d="M30 12 Q31 4.5 33.5 5 Q35.5 7 33 12.5" fill="#0A0806" stroke="#0A0806" stroke-width="0.4"/>
+    <!-- Inner ear tan -->
+    <path d="M24.6 12.5 Q23.5 7 25.5 6 Q27.5 7 27 12.5" fill="#A87840" opacity="0.45"/>
+    <!-- Tail — lab-proud, black -->
+    <path d="M9 26 Q3 21 5 16 Q7 13 8.5 18 Q9.5 22 9 26" fill="#181008" stroke="#0A0806" stroke-width="0.5"/>
+    <!-- Front legs — black -->
+    <rect x="21" y="33" width="4" height="6" rx="2" fill="#181008" stroke="#0A0806" stroke-width="0.6"/>
+    <rect x="15" y="34" width="4" height="5" rx="2" fill="#181008" stroke="#0A0806" stroke-width="0.6"/>
+    <!-- Tan paws (GSD tan-point) -->
+    <ellipse cx="23" cy="39.2" rx="2.2" ry="0.9" fill="#A87840"/>
+    <ellipse cx="17" cy="39.2" rx="2.2" ry="0.9" fill="#A87840"/>
+    <!-- Red collar -->
     <path d="M21 23 Q28 21 35 24" stroke="#B85C3A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
     <!-- Tag -->
     <circle cx="28.5" cy="23.5" r="1.8" fill="#C49A3C" stroke="#A07A2A" stroke-width="0.4"/>
