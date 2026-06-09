@@ -1510,12 +1510,15 @@ function computeAlerts() {
 }
 
 // ══════════════════════════════════════════════════════════
-//  API (all GET to avoid CORS preflight)
+//  API (via CORS proxy to bypass cross-origin restrictions)
 // ══════════════════════════════════════════════════════════
 async function api(params) {
-  const url = new URL(SCRIPT_URL);
+  const appScriptUrl = SCRIPT_URL;
+  const url = new URL(appScriptUrl);
   Object.entries(params).forEach(([k,v]) => url.searchParams.set(k, v));
-  const res = await fetch(url.toString(), { redirect: 'follow' });
+  // Use CORS proxy to bypass cross-origin policy
+  const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url.toString());
+  const res = await fetch(proxyUrl, { redirect: 'follow' });
   return res.json();
 }
 
