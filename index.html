@@ -1055,7 +1055,7 @@
 //  CONFIGURATION
 //  After deploying your Apps Script, paste its URL below.
 // ══════════════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBLuJmm2pL1yNTd4tH_VR7gTObk4LGN7QFKCGZ6yCTUipUYV7LafxaoQWuivhmzrTHRg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaLYxwDm3FM--lDlu1cSc47xt0DU0HzYZe6BoqNGJyTe7SoJ37usxf2u5j5boFXC9f3A/exec';
 
 // ══════════════════════════════════════════════════════════
 //  CATEGORY REGISTRY
@@ -1510,16 +1510,29 @@ function computeAlerts() {
 }
 
 // ══════════════════════════════════════════════════════════
-//  API (via CORS proxy to bypass cross-origin restrictions)
+//  API — JSONP bypasses cross-origin policy without a proxy
 // ══════════════════════════════════════════════════════════
-async function api(params) {
-  const appScriptUrl = SCRIPT_URL;
-  const url = new URL(appScriptUrl);
-  Object.entries(params).forEach(([k,v]) => url.searchParams.set(k, v));
-  // Use CORS proxy to bypass cross-origin policy
-  const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url.toString());
-  const res = await fetch(proxyUrl, { redirect: 'follow' });
-  return res.json();
+function api(params) {
+  return new Promise((resolve, reject) => {
+    const cb = 'hs_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const url = new URL(SCRIPT_URL);
+    Object.entries(params).forEach(([k,v]) => url.searchParams.set(k, String(v)));
+    url.searchParams.set('callback', cb);
+
+    const script = document.createElement('script');
+    const timer  = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 30000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      delete window[cb];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    window[cb] = function(data) { cleanup(); resolve(data); };
+    script.onerror = function() { cleanup(); reject(new Error('load failed')); };
+    script.src = url.toString();
+    document.head.appendChild(script);
+  });
 }
 
 // ── Local cache (instant open + offline resilience) ───────
