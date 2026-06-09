@@ -806,9 +806,9 @@
       padding: 3px 7px;
       border-radius: 10px;
       font-weight: 700;
+      background: rgba(184,92,58,0.15);
+      color: var(--terracotta);
     }
-    .alert-tag.over   { background: rgba(184,92,58,0.15); color: var(--terracotta); }
-    .alert-tag.pacing { background: rgba(196,154,60,0.18); color: var(--gold-dark); }
 
     /* ── Recurring switch (Log form) ───────── */
     .recurring-row {
@@ -1480,33 +1480,20 @@ function avgForCat(cat) {
   return total / denom;
 }
 
-// Categories pacing over budget (current month) or that ended over (past month)
+// Categories that have gone over budget this month
 function computeAlerts() {
-  const ym   = state.month;
-  const isCur = ym === currentYM();
-  const map  = spendMapFor(monthExpenses(ym));
-  const out  = [];
-
-  state.budget.forEach(b => {
-    if (b.BillingType === 'quarterly') return;            // quarterly spikes aren't alerts
-    const budget = parseFloat(b.MonthlyBudget||0);
-    if (budget <= 0) return;
-    const spent = map[b.Category] || 0;
-
-    if (spent > budget) {
-      out.push({ cat: b.Category, type: 'over', spent, budget });
-    } else if (isCur && spent > 0) {
-      const now   = new Date();
-      const days  = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
-      const day   = now.getDate();
-      // Don't project in the first week — too little signal, too many false alarms
-      if (day < 8) return;
-      const proj  = (spent / day) * days;
-      // Require a meaningful overshoot (10%) so we flag real trends, not rounding
-      if (proj > budget * 1.1) out.push({ cat: b.Category, type: 'pacing', spent, budget, proj });
-    }
-  });
-  return out;
+  const map = spendMapFor(monthExpenses(state.month));
+  return state.budget
+    .filter(b => b.BillingType !== 'quarterly')
+    .filter(b => {
+      const budget = parseFloat(b.MonthlyBudget||0);
+      return budget > 0 && (map[b.Category]||0) > budget;
+    })
+    .map(b => ({
+      cat: b.Category,
+      spent: map[b.Category],
+      budget: parseFloat(b.MonthlyBudget)
+    }));
 }
 
 // ══════════════════════════════════════════════════════════
@@ -1628,11 +1615,9 @@ function renderDashboard() {
             <div class="alert-icon">${ICONS[catId(a.cat)]||ICONS.household}</div>
             <div class="alert-text">
               <span class="alert-cat">${a.cat}</span>
-              <span class="alert-detail">${a.type === 'over'
-                ? `over by ${fmtCur0(a.spent - a.budget)}`
-                : `pacing to ${fmtCur0(a.proj)} of ${fmtCur0(a.budget)}`}</span>
+              <span class="alert-detail">over by ${fmtCur0(a.spent - a.budget)}</span>
             </div>
-            <div class="alert-tag ${a.type}">${a.type === 'over' ? 'over' : 'pacing'}</div>
+            <div class="alert-tag">over</div>
           </div>`).join('')}
       </div>` : ''}
 
