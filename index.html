@@ -160,6 +160,9 @@
       font-weight: 700;
       color: var(--gold);
       letter-spacing: 0.04em;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .wordmark-sub {
@@ -998,6 +1001,344 @@
       color: var(--ink);
       font-weight: 600;
     }
+
+    /* ── The Living Hearth ─────────────────── */
+    .hearth-flame {
+      width: 13px;
+      height: 17px;
+      margin-left: 7px;
+      vertical-align: baseline;
+      transform-origin: 50% 100%;
+      animation: hearthFlicker 2.6s ease-in-out infinite;
+    }
+    .hearth-flame .hf-outer { fill: #6B5A42; transition: fill 0.8s; }
+    .hearth-flame .hf-inner { fill: #8A7858; transition: fill 0.8s; }
+    .hf-warm  .hf-outer { fill: var(--gold); }
+    .hf-warm  .hf-inner { fill: #F0C060; }
+    .hf-amber .hf-outer { fill: #C4793C; }
+    .hf-amber .hf-inner { fill: #E09A50; }
+    .hf-ember .hf-outer { fill: #8A4530; }
+    .hf-ember .hf-inner { fill: #B85C3A; }
+    .hf-ember { animation-duration: 4.5s; transform: scale(0.85); }
+    @keyframes hearthFlicker {
+      0%, 100% { transform: scaleY(1)    scaleX(1); }
+      25%      { transform: scaleY(1.06) scaleX(0.97); }
+      50%      { transform: scaleY(0.96) scaleX(1.03); }
+      75%      { transform: scaleY(1.04) scaleX(0.98); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hearth-flame, .alm-flame { animation: none !important; }
+    }
+
+    /* ── The Almanac ───────────────────────── */
+    .alm-head { text-align: center; margin: 4px 0 14px; }
+    .alm-year {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .alm-sub {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      margin-top: 3px;
+    }
+    .alm-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+    .alm-tile {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 6px 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-family: inherit;
+      transition: transform 0.12s;
+    }
+    .alm-tile:active { transform: scale(0.96); }
+    .alm-current { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+    .alm-flame { width: 18px; height: 24px; transform-origin: 50% 100%; }
+    .alm-unlit .hf-outer { fill: #D9CEBC; }
+    .alm-unlit .hf-inner { fill: #E8DFD0; }
+    .alm-warm  .alm-flame, .alm-amber .alm-flame, .alm-ember .alm-flame {
+      animation: hearthFlicker 2.8s ease-in-out infinite;
+    }
+    .alm-warm  .hf-outer { fill: var(--gold); }   .alm-warm  .hf-inner { fill: #F0C060; }
+    .alm-amber .hf-outer { fill: #C4793C; }       .alm-amber .hf-inner { fill: #E09A50; }
+    .alm-ember .hf-outer { fill: #8A4530; }       .alm-ember .hf-inner { fill: #B85C3A; }
+    .alm-mon {
+      font-family: var(--ff-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .alm-unlit .alm-mon { color: var(--warm-gray); opacity: 0.6; }
+    .alm-spent { font-size: 0.62rem; color: var(--warm-gray); }
+    .alm-notedot {
+      position: absolute;
+      top: 7px; right: 8px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .alm-stats {
+      display: flex;
+      justify-content: space-around;
+      padding: 14px 8px;
+      text-align: center;
+      gap: 6px;
+    }
+    .alm-stat-val {
+      font-family: var(--ff-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .alm-stat-lbl {
+      font-size: 0.62rem;
+      color: var(--warm-gray);
+      margin-top: 2px;
+      font-style: italic;
+    }
+    .alm-legend {
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+      font-size: 0.64rem;
+      color: var(--warm-gray);
+      margin-bottom: 4px;
+    }
+    .alm-legend span { display: flex; align-items: center; gap: 4px; }
+    .alm-key {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .k-warm  { background: var(--gold); }
+    .k-amber { background: #C4793C; }
+    .k-ember { background: #8A4530; }
+    .k-unlit { background: #D9CEBC; }
+
+    /* ── The Seasonal Hearth ───────────────── */
+    /* The parchment warms and cools with the year. */
+    body.season-winter { --cream: #F3F1EE; --parchment: #ECE9E4; }
+    body.season-spring { --cream: #F5F4E7; --parchment: #EDEBDA; }
+    body.season-summer { --cream: #F7F2E8; --parchment: #EFE8D8; }
+    body.season-autumn { --cream: #F7EFE1; --parchment: #F0E4CE; }
+
+    /* ── The Inglenook ─────────────────────── */
+    .inglenook {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      text-align: center;
+      line-height: 1.55;
+      padding: 12px 18px 4px;
+    }
+    .inglenook em { color: var(--ink); }
+    .inglenook-mark {
+      color: var(--gold);
+      font-style: normal;
+      margin-right: 5px;
+    }
+
+    /* ── The Dedication ────────────────────── */
+    .dedication-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(42,31,15,0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      animation: dedFade 0.5s ease;
+      padding: 28px;
+    }
+    @keyframes dedFade { from { opacity: 0; } to { opacity: 1; } }
+    .dedication-card {
+      background: var(--card);
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      padding: 38px 30px;
+      text-align: center;
+      max-width: 320px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .dedication-line {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 1.02rem;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    .dedication-orn {
+      color: var(--gold);
+      font-size: 0.7rem;
+      margin: 10px 0;
+      letter-spacing: 0.3em;
+    }
+
+    /* ── Fixed vs. variable ────────────────── */
+    .fv-panel { padding: 14px; }
+    .fv-bar {
+      height: 12px;
+      border-radius: 6px;
+      background: var(--sage);
+      overflow: hidden;
+    }
+    .fv-fixed { height: 100%; background: var(--terracotta); }
+    .fv-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: var(--warm-gray);
+    }
+    .fv-legend span { display: flex; align-items: center; gap: 6px; }
+    .fv-key {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .fv-key-fixed { background: var(--terracotta); }
+    .fv-key-var   { background: var(--sage); }
+
+    /* ── The Ledger Closes ─────────────────── */
+    .closing-page {
+      text-align: center;
+      padding: 18px 16px 6px;
+      margin-top: 8px;
+    }
+    .closing-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin-bottom: 16px;
+    }
+    .closing-title {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .closing-year {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--gold-dark, #A07A2A);
+      letter-spacing: 0.12em;
+      margin: 2px 0 10px;
+    }
+    .closing-body {
+      font-size: 0.78rem;
+      color: var(--warm-gray);
+      line-height: 1.8;
+    }
+    .closing-orn {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      margin-top: 10px;
+      opacity: 0.7;
+    }
+
+    /* ── CSV export ────────────────────────── */
+    .csv-btn {
+      display: block;
+      margin: 14px auto 0;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-family: var(--ff-body);
+      font-size: 0.74rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.04em;
+    }
+    .csv-btn:active { background: var(--parchment); }
+
+    /* ── Amend / themed confirm ────────────── */
+    .exp-actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .btn-edit {
+      background: none;
+      border: none;
+      font-family: var(--ff-body);
+      font-size: 0.66rem;
+      color: var(--sage);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      padding: 2px 0;
+    }
+    .btn-canceledit {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      background: none;
+      border: none;
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      padding: 6px;
+    }
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(42,31,15,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 180;
+      padding: 28px;
+      animation: dedFade 0.18s ease;
+    }
+    .confirm-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 22px 16px;
+      max-width: 300px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .confirm-msg {
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .confirm-btns { display: flex; gap: 10px; }
+    .confirm-btns button {
+      flex: 1;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: var(--ff-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .confirm-cancel {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--warm-gray);
+    }
+    .confirm-go {
+      background: var(--terracotta);
+      border: 1px solid var(--terracotta);
+      color: var(--cream);
+    }
   </style>
 </head>
 <body>
@@ -1007,7 +1348,10 @@
   <header>
     <div class="header-row">
       <div class="wordmark">
-        <span class="wordmark-title">Hearthstone</span>
+        <span class="wordmark-title">Hearthstone<svg id="hearthFlame" class="hearth-flame" viewBox="0 0 24 32" aria-hidden="true">
+          <path class="hf-outer" d="M12 2 C12 2 4 12 4 20 C4 26 7.6 30 12 30 C16.4 30 20 26 20 20 C20 12 12 2 12 2Z"/>
+          <path class="hf-inner" d="M12 12 C12 12 8 17 8 21.5 C8 24.5 9.8 27 12 27 C14.2 27 16 24.5 16 21.5 C16 17 12 12 12 12Z"/>
+        </svg></span>
         <span class="wordmark-sub">household accounts<span id="syncDot" class="sync-dot"></span></span>
       </div>
       <div class="month-nav">
@@ -1044,6 +1388,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
       Report
     </button>
+    <button data-view="almanac">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Almanac
+    </button>
   </nav>
 
 </div>
@@ -1051,11 +1399,8 @@
 <div id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════════════════
-//  CONFIGURATION
-//  After deploying your Apps Script, paste its URL below.
-// ══════════════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaLYxwDm3FM--lDlu1cSc47xt0DU0HzYZe6BoqNGJyTe7SoJ37usxf2u5j5boFXC9f3A/exec';
+
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzv3vQThvgiQ-ME3V375YsOzY3eJ0SYr29Z8anywHGCsfmUKbNiTy-uXj-g0YlnFvbSg/exec';
 
 // ══════════════════════════════════════════════════════════
 //  CATEGORY REGISTRY
@@ -1560,6 +1905,7 @@ async function loadAll() {
       state.allExpenses = res.data.expenses || [];
       state.notes       = res.data.notes    || {};
       writeCache();
+      lastFetch = Date.now();
       if (state.view !== 'add') render();   // don't clobber a form in progress
     }
   } catch(e) {
@@ -1583,6 +1929,164 @@ function render() {
   else if (state.view === 'add')       renderAdd();
   else if (state.view === 'history')   renderHistory();
   else if (state.view === 'summary')   renderSummary();
+  else if (state.view === 'almanac')   renderAlmanac();
+  updateHearth();
+}
+
+// ── The Living Hearth ─────────────────────────────────────
+// The flame in the header reflects the current month's health:
+// burning tall and gold when the books are comfortable, amber
+// when spending nears the budget, a low ember when over.
+function updateHearth() {
+  const flame = document.getElementById('hearthFlame');
+  if (!flame || !state.budget.length) return;
+  const ym  = currentYM();
+  const map = spendMapFor(monthExpenses(ym));
+  const budget = state.budget.reduce((s,b) => s + parseFloat(b.MonthlyBudget||0), 0);
+  const spent  = Object.values(map).reduce((a,b) => a+b, 0);
+  const ratio  = budget > 0 ? spent / budget : 0;
+  flame.classList.remove('hf-warm','hf-amber','hf-ember');
+  if      (ratio <= 0.85) flame.classList.add('hf-warm');
+  else if (ratio <= 1.0)  flame.classList.add('hf-amber');
+  else                    flame.classList.add('hf-ember');
+}
+
+// ── The Almanac ───────────────────────────────────────────
+// A year at a glance, told in embers: one tile per month,
+// glowing by how the books closed. Tap any month to visit it.
+function renderAlmanac() {
+  const year = parseInt(state.month.split('-')[0], 10);
+  const monthlyBudget = state.budget.reduce((s,b) => s + parseFloat(b.MonthlyBudget||0), 0);
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const nowYM = currentYM();
+
+  let yearSpent = 0, monthsWithData = 0, bestM = null, bestSaved = -Infinity;
+
+  const tiles = MON.map((name, i) => {
+    const ym    = `${year}-${String(i+1).padStart(2,'0')}`;
+    const spent = spendMapTotal(ym);
+    const note  = state.notes[ym];
+    const isFuture = ym > nowYM;
+    const isCur    = ym === nowYM;
+    let cls = 'alm-unlit', glow = '';
+
+    if (!isFuture && spent > 0) {
+      yearSpent += spent; monthsWithData++;
+      const saved = monthlyBudget - spent;
+      if (!isCur && saved > bestSaved) { bestSaved = saved; bestM = name; }
+      const r = monthlyBudget > 0 ? spent / monthlyBudget : 0;
+      cls  = r <= 0.85 ? 'alm-warm' : r <= 1.0 ? 'alm-amber' : 'alm-ember';
+      glow = `<div class="alm-spent">${fmtCur0(spent)}</div>`;
+    }
+
+    return `
+      <button class="alm-tile ${cls}${isCur?' alm-current':''}" data-ym="${ym}">
+        <svg class="alm-flame" viewBox="0 0 24 32">
+          <path class="hf-outer" d="M12 2 C12 2 4 12 4 20 C4 26 7.6 30 12 30 C16.4 30 20 26 20 20 C20 12 12 2 12 2Z"/>
+          <path class="hf-inner" d="M12 12 C12 12 8 17 8 21.5 C8 24.5 9.8 27 12 27 C14.2 27 16 24.5 16 21.5 C16 17 12 12 12 12Z"/>
+        </svg>
+        <div class="alm-mon">${name}</div>
+        ${glow}
+        ${note ? `<div class="alm-notedot" title="has note"></div>` : ''}
+      </button>`;
+  }).join('');
+
+  const yearBudget = monthlyBudget * monthsWithData;
+  const yearSaved  = yearBudget - yearSpent;
+
+  main.innerHTML = `
+    <div class="alm-head">
+      <div class="alm-year">${year}</div>
+      <div class="alm-sub">The Year in the Larder</div>
+    </div>
+
+    <div class="alm-grid">${tiles}</div>
+
+    <div class="panel alm-stats">
+      <div class="alm-stat">
+        <div class="alm-stat-val">${fmtCur0(yearSpent)}</div>
+        <div class="alm-stat-lbl">spent across ${monthsWithData} month${monthsWithData===1?'':'s'}</div>
+      </div>
+      <div class="alm-stat">
+        <div class="alm-stat-val" style="color:${yearSaved>=0?'var(--sage)':'var(--terracotta)'}">${fmtCur0(Math.abs(yearSaved))}</div>
+        <div class="alm-stat-lbl">${yearSaved>=0?'kept in the jar':'over the year\u2019s budget'}</div>
+      </div>
+      ${bestM ? `
+      <div class="alm-stat">
+        <div class="alm-stat-val">${bestM}</div>
+        <div class="alm-stat-lbl">thriftiest month</div>
+      </div>` : ''}
+    </div>
+
+    <div class="alm-legend">
+      <span><i class="alm-key k-warm"></i> comfortable</span>
+      <span><i class="alm-key k-amber"></i> close</span>
+      <span><i class="alm-key k-ember"></i> over</span>
+      <span><i class="alm-key k-unlit"></i> unlit</span>
+    </div>
+
+    ${(() => {
+      // The Ledger Closes: a final page for a finished year —
+      // December lit, or the year already behind us.
+      const decYM   = year + '-12';
+      const decDone = spendMapTotal(decYM) > 0;
+      const yearPast = year < parseInt(nowYM.split('-')[0], 10);
+      if (!monthsWithData || !(decDone || yearPast)) return '';
+      const entries = state.allExpenses.filter(e => ymOf(e).startsWith(year + '-')).length;
+      return `
+      <div class="closing-page">
+        <div class="closing-rule"></div>
+        <div class="closing-title">The Ledger Closes</div>
+        <div class="closing-year">Anno ${year}</div>
+        <div class="closing-body">
+          ${entries} entries kept · ${fmtCur0(yearSpent)} spent across ${monthsWithData} months<br>
+          ${yearSaved >= 0
+            ? fmtCur0(yearSaved) + ' kept in the jar'
+            : fmtCur0(-yearSaved) + ' over the year\u2019s budget'}${bestM ? ' · thriftiest: ' + bestM : ''}
+        </div>
+        <div class="closing-orn">— ✦ —</div>
+      </div>`;
+    })()}
+
+    <button class="csv-btn" id="csvExport">Export ${year} as CSV</button>
+
+    <div class="ornament">— ✦ —</div>
+  `;
+
+  document.getElementById('csvExport').addEventListener('click', () => exportYearCSV(String(year)));
+
+  main.querySelectorAll('.alm-tile').forEach(t => {
+    t.addEventListener('click', () => {
+      const ym = t.dataset.ym;
+      if (ym > nowYM) return;                  // the future stays unwritten
+      state.month = ym;
+      document.getElementById('monthLabel').textContent = fmtMonth(ym);
+      switchView('dashboard');
+    });
+  });
+}
+
+function spendMapTotal(ym) {
+  return monthExpenses(ym).reduce((s,e) => s + parseFloat(e.Amount||0), 0);
+}
+
+// ── The Inglenook ─────────────────────────────────────────
+// A quiet line of household memory: the same month, one year
+// back, recalled from the ledger and its note. Appears only
+// when last year's month actually has entries.
+function inglenookHTML() {
+  const [y, m] = state.month.split('-');
+  const lastYM = (parseInt(y,10) - 1) + '-' + m;
+  const exp = monthExpenses(lastYM);
+  if (!exp.length) return '';
+  const total = exp.reduce((s,e) => s + parseFloat(e.Amount||0), 0);
+  const note  = state.notes[lastYM];
+  return `
+    <div class="inglenook">
+      <span class="inglenook-mark">❧</span>
+      A year ago this month, the household spent ${fmtCur0(total)}${note
+        ? ` — the ledger notes: <em>${esc(note)}</em>` : '.'}
+    </div>`;
 }
 
 // ── Dashboard ─────────────────────────────────────────────
@@ -1650,6 +2154,7 @@ function renderDashboard() {
 
     <div class="section-eyebrow">The Pantry</div>
     <div class="panel" id="catList"></div>
+    ${inglenookHTML()}
   `;
 
   // Period toggle handlers
@@ -1767,12 +2272,13 @@ function renderCatList(spendMap) {
 
 // ── Add Expense ───────────────────────────────────────────
 function renderAdd() {
-  const today = new Date().toISOString().split('T')[0];
-  state.recurring = false;
+  const editing = state.editing || null;
+  const today   = new Date().toISOString().split('T')[0];
+  state.recurring = editing ? !!editing.Recurring : false;
 
   main.innerHTML = `
     <div class="panel">
-      <div class="form-title">Log an Expense</div>
+      <div class="form-title">${editing ? 'Amend an Entry' : 'Log an Expense'}</div>
       <div class="form-body">
         <div class="form-group">
           <label>Category</label>
@@ -1781,29 +2287,30 @@ function renderAdd() {
         <div class="form-group">
           <label>Amount</label>
           <div class="amount-wrap">
-            <input type="number" id="fAmount" placeholder="0.00" step="0.01" min="0" inputmode="decimal">
+            <input type="number" id="fAmount" placeholder="0.00" step="0.01" min="0" inputmode="decimal" value="${editing ? esc(editing.Amount) : ''}">
           </div>
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input type="date" id="fDate" value="${today}">
+          <input type="date" id="fDate" value="${editing ? esc(editing.Date) : today}">
         </div>
         <div class="form-group">
           <label>Description <span style="opacity:0.5;font-size:0.8em">(optional)</span></label>
-          <input type="text" id="fDesc" placeholder="What was this for?">
+          <input type="text" id="fDesc" placeholder="What was this for?" value="${editing ? esc(editing.Description||'') : ''}">
         </div>
         <div class="recurring-row" id="recurRow">
           <div class="recurring-label">
             <span class="recurring-title">Recurring expense</span>
             <span class="recurring-hint">A predictable bill you expect each month</span>
           </div>
-          <div class="switch" id="recurSwitch"><div class="switch-knob"></div></div>
+          <div class="switch${state.recurring ? ' on' : ''}" id="recurSwitch"><div class="switch-knob"></div></div>
         </div>
-        <button class="btn-submit" id="fSubmit">Record in the Ledger</button>
+        <button class="btn-submit" id="fSubmit">${editing ? 'Amend the Entry' : 'Record in the Ledger'}</button>
+        ${editing ? '<button class="btn-canceledit" id="fCancel">Leave it as it was</button>' : ''}
       </div>
     </div>`;
 
-  let chosen = state.selCat || '';
+  let chosen = editing ? editing.Category : (state.selCat || '');
   const picker = document.getElementById('picker');
   picker.innerHTML = state.budget.map(b => {
     const icon = ICONS[catId(b.Category)] || ICONS.household;
@@ -1825,6 +2332,13 @@ function renderAdd() {
     sw.classList.toggle('on', state.recurring);
   });
 
+  if (editing) {
+    document.getElementById('fCancel').addEventListener('click', () => {
+      state.editing = null;
+      switchView('history');
+    });
+  }
+
   document.getElementById('fSubmit').addEventListener('click', () => {
     const amount = parseFloat(document.getElementById('fAmount').value);
     const date   = document.getElementById('fDate').value;
@@ -1833,6 +2347,32 @@ function renderAdd() {
     if (!chosen)       { toast('Choose a category first.'); return; }
     if (!amount || amount <= 0) { toast('Enter a valid amount.'); return; }
     if (!date)         { toast('Choose a date.'); return; }
+
+    if (editing) {
+      // Optimistic amend: keep the old values for rollback
+      const prior = { Date: editing.Date, Category: editing.Category, Amount: editing.Amount,
+                      Description: editing.Description, Month: editing.Month, Recurring: editing.Recurring };
+      editing.Date = date;
+      editing.Category = chosen;
+      editing.Amount = amount;
+      editing.Description = desc;
+      editing.Month = date.substring(0, 7);
+      editing.Recurring = state.recurring;
+      writeCache();
+      state.editing = null;
+      toast('Entry amended.');
+      switchView('history');
+
+      api({ action:'updateExpense', id: editing.ID, category:chosen, amount, date, description:desc, recurring: editing.Recurring })
+        .then(res => { if (res && res.error) throw new Error(res.error); })
+        .catch(() => {
+          Object.assign(editing, prior);
+          writeCache();
+          toast('Could not amend — entry restored.');
+          if (state.view === 'history') renderHistory();
+        });
+      return;
+    }
 
     // Optimistic: add locally and move on immediately
     const rec = {
@@ -1918,7 +2458,10 @@ function renderHistory() {
             </div>
             <div class="exp-right">
               <div class="exp-amount">${fmtCur(e.Amount)}</div>
-              <button class="btn-remove" data-id="${e.ID}">remove</button>
+              <div class="exp-actions">
+                <button class="btn-edit" data-id="${e.ID}">amend</button>
+                <button class="btn-remove" data-id="${e.ID}">remove</button>
+              </div>
             </div>
           </div>`;
       }).join('') : `<div class="empty-state" style="padding:28px">Nothing matches that filter.</div>`}
@@ -1926,9 +2469,20 @@ function renderHistory() {
 
   wireFilters();
 
-  main.querySelectorAll('.btn-remove').forEach(btn => {
+  main.querySelectorAll('.btn-edit').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (!confirm('Remove this entry from the ledger?')) return;
+      const exp = state.allExpenses.find(e => String(e.ID) === String(btn.dataset.id));
+      if (!exp) return;
+      if (String(exp.ID).startsWith('tmp_')) { toast('Still saving — one moment.'); return; }
+      state.editing = exp;
+      switchView('add');
+    });
+  });
+
+  main.querySelectorAll('.btn-remove').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const ok = await askConfirm('Strike this from the ledger?', 'Strike it');
+      if (!ok) return;
       const id  = btn.dataset.id;
       const idx = state.allExpenses.findIndex(e => String(e.ID) === String(id));
       const removed = idx >= 0 ? state.allExpenses[idx] : null;
@@ -2000,6 +2554,22 @@ function renderSummary() {
         </div>
       </div>
     </div>
+
+    ${(() => {
+      const fixed = thisExp.filter(e => e.Recurring).reduce((s,e) => s + parseFloat(e.Amount||0), 0);
+      const variable = totalSpent - fixed;
+      if (totalSpent <= 0) return '';
+      const fpct = Math.round((fixed / totalSpent) * 100);
+      return `
+      <div class="panel fv-panel">
+        <div class="panel-label" style="margin-bottom:8px">Fixed vs. variable</div>
+        <div class="fv-bar"><div class="fv-fixed" style="width:${fpct}%"></div></div>
+        <div class="fv-legend">
+          <span><i class="fv-key fv-key-fixed"></i> Recurring bills · ${fmtCur0(fixed)} (${fpct}%)</span>
+          <span><i class="fv-key fv-key-var"></i> Everything else · ${fmtCur0(variable)} (${100-fpct}%)</span>
+        </div>
+      </div>`;
+    })()}
 
     <!-- Monthly note -->
     <div class="panel note-panel">
@@ -2108,6 +2678,7 @@ function renderSummary() {
 //  NAVIGATION
 // ══════════════════════════════════════════════════════════
 function switchView(v) {
+  if (v !== 'add') state.editing = null;   // abandon any unfinished amend
   state.view = v;
   document.querySelectorAll('nav button').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === v);
@@ -2152,6 +2723,131 @@ function toast(msg) {
 // ══════════════════════════════════════════════════════════
 //  BOOT
 // ══════════════════════════════════════════════════════════
+// ── The Seasonal Hearth ───────────────────────────────────
+// The parchment warms and cools with the year. Subtle by design:
+// she should sense it in October, not notice it in June.
+function applySeason() {
+  const m = new Date().getMonth() + 1;
+  const season = (m === 12 || m <= 2) ? 'winter'
+               : (m <= 5)             ? 'spring'
+               : (m <= 8)             ? 'summer'
+               :                        'autumn';
+  document.body.classList.add('season-' + season);
+}
+
+// ── The Dedication ────────────────────────────────────────
+// Long-press the wordmark to find it. Set in italic like a
+// book's front matter, invisible until sought.
+const DEDICATION_LINES = [
+  'You\u2019re a cowgirl, rustic as canned barbecue beans, harder to break than ration tack.',
+  'You\u2019re a seven-card stud with a gambling evening in full swing.',
+  'You\u2019re my only hello and my never goodbye.',
+  'Your smile is the loveliest place to be.',
+];
+
+function setupDedication() {
+  const mark = document.querySelector('.wordmark');
+  if (!mark) return;
+  let timer = null;
+  const start = () => { timer = setTimeout(showDedication, 700); };
+  const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
+  mark.addEventListener('touchstart', start, { passive: true });
+  mark.addEventListener('touchend', cancel);
+  mark.addEventListener('touchmove', cancel);
+  mark.addEventListener('mousedown', start);
+  mark.addEventListener('mouseup', cancel);
+  mark.addEventListener('mouseleave', cancel);
+}
+
+function showDedication() {
+  if (document.getElementById('dedication')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'dedication';
+  overlay.className = 'dedication-overlay';
+  overlay.innerHTML = `
+    <div class="dedication-card">
+      <div class="dedication-orn">✦</div>
+      ${DEDICATION_LINES.map(l => `<div class="dedication-line">${esc(l)}</div>`).join('')}
+      <div class="dedication-orn">✦</div>
+    </div>`;
+  overlay.addEventListener('click', () => overlay.remove());
+  document.body.appendChild(overlay);
+}
+
+// ── CSV export (client-side, no server) ───────────────────
+function exportYearCSV(year) {
+  const rows = state.allExpenses
+    .filter(e => ymOf(e).startsWith(year + '-'))
+    .sort((a,b) => String(a.Date).localeCompare(String(b.Date)));
+  const head = ['Date','Category','Amount','Description','Recurring','Month'];
+  const csvCell = v => {
+    const s = String(v == null ? '' : v);
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+  };
+  const csv = [head.join(',')].concat(
+    rows.map(e => [e.Date, e.Category, e.Amount, e.Description||'', e.Recurring ? 'true':'false', ymOf(e)]
+      .map(csvCell).join(','))
+  ).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hearthstone-' + year + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+  toast(rows.length + ' entries exported.');
+}
+
+// ── Themed confirmation (replaces the OS confirm dialog) ──
+function askConfirm(message, actionLabel) {
+  return new Promise(resolve => {
+    const overlay = document.createElement('div');
+    overlay.className = 'confirm-overlay';
+    overlay.innerHTML = `
+      <div class="confirm-card">
+        <div class="confirm-msg">${esc(message)}</div>
+        <div class="confirm-btns">
+          <button class="confirm-cancel">Keep it</button>
+          <button class="confirm-go">${esc(actionLabel || 'Strike it')}</button>
+        </div>
+      </div>`;
+    const done = val => { overlay.remove(); resolve(val); };
+    overlay.querySelector('.confirm-cancel').addEventListener('click', () => done(false));
+    overlay.querySelector('.confirm-go').addEventListener('click', () => done(true));
+    overlay.addEventListener('click', e => { if (e.target === overlay) done(false); });
+    document.body.appendChild(overlay);
+  });
+}
+
+// ── Foreground refetch ────────────────────────────────────
+// If the app has sat in the background (the other phone may
+// have written meanwhile), quietly refresh on return.
+let lastFetch = 0;
+async function quietRefresh() {
+  setSyncing(true);
+  try {
+    const res = await api({ action: 'getAll' });
+    if (res && res.data) {
+      state.budget      = res.data.budget   || [];
+      state.allExpenses = res.data.expenses || [];
+      state.notes       = res.data.notes    || {};
+      writeCache();
+      lastFetch = Date.now();
+      if (state.view !== 'add') render();
+    }
+  } catch(e) { /* silent — cache stays authoritative */ }
+  setSyncing(false);
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && Date.now() - lastFetch > 60000) {
+    quietRefresh();
+  }
+});
+
+applySeason();
+setupDedication();
 loadAll();
 </script>
 </body>
