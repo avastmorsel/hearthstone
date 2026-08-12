@@ -1399,8 +1399,11 @@
 <div id="toast"></div>
 
 <script>
-
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzv3vQThvgiQ-ME3V375YsOzY3eJ0SYr29Z8anywHGCsfmUKbNiTy-uXj-g0YlnFvbSg/exec';
+// ══════════════════════════════════════════════════════════
+//  CONFIGURATION
+//  After deploying your Apps Script, paste its URL below.
+// ══════════════════════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzCyDa5sMP0oc5m6CcEtZrIGvepQFHXimgl-9hw9RaM8FehNDl1ZZ8SInVUcmLnNRB-Iw/exec';
 
 // ══════════════════════════════════════════════════════════
 //  CATEGORY REGISTRY
@@ -1719,6 +1722,25 @@ const state = {
 function currentYM() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+}
+
+// Today's date in LOCAL time (toISOString is UTC and rolls to
+// tomorrow after ~8pm Eastern, a classic off-by-one)
+function localToday() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// Parse an entry's Date field regardless of shape: plain
+// yyyy-MM-dd, a full ISO datetime, or any string Date() can
+// read. Returns a local-noon Date, or null if hopeless.
+function parseEntryDate(e) {
+  const s = String(e.Date || '');
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return new Date(+m[1], +m[2]-1, +m[3], 12);
+  const d = new Date(s);
+  if (!isNaN(d)) return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12);
+  return null;
 }
 
 function fmtMonth(ym) {
@@ -2273,7 +2295,11 @@ function renderCatList(spendMap) {
 // ── Add Expense ───────────────────────────────────────────
 function renderAdd() {
   const editing = state.editing || null;
-  const today   = new Date().toISOString().split('T')[0];
+  const today   = localToday();
+  const editDate = editing ? (() => {
+    const d = parseEntryDate(editing);
+    return d ? `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}` : today;
+  })() : today;
   state.recurring = editing ? !!editing.Recurring : false;
 
   main.innerHTML = `
@@ -2292,7 +2318,7 @@ function renderAdd() {
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input type="date" id="fDate" value="${editing ? esc(editing.Date) : today}">
+          <input type="date" id="fDate" value="${editDate}">
         </div>
         <div class="form-group">
           <label>Description <span style="opacity:0.5;font-size:0.8em">(optional)</span></label>
@@ -2420,7 +2446,7 @@ function renderHistory() {
     }
     return true;
   });
-  filtered.sort((a,b) => new Date(b.Date) - new Date(a.Date));
+  filtered.sort((a,b) => (parseEntryDate(b)||0) - (parseEntryDate(a)||0));
 
   const filterBar = `
     <div class="filter-bar">
@@ -2445,8 +2471,9 @@ function renderHistory() {
     <div class="panel">
       ${filtered.length ? filtered.map(e => {
         const icon = ICONS[catId(e.Category)] || ICONS.household;
-        const d    = new Date(e.Date + 'T12:00:00');
-        const ds   = d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+        const d    = parseEntryDate(e);
+        const ds   = d ? d.toLocaleDateString('en-US',{month:'short',day:'numeric'})
+                       : (ymOf(e) ? fmtMonthShort(ymOf(e)) : '—');
         const rec  = e.Recurring ? `<span class="recur-badge">recurring</span>` : '';
         return `
           <div class="expense-item">
